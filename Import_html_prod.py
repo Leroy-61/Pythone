@@ -1,9 +1,6 @@
-# import_json_v2.py
-
-import json
 import os
+import json
 import html
-from create_bpmn import create_bpmn_diagram, save_bpmn_diagram
 
 # Словарь для сопоставления типов целей с их текстовыми значениями
 OBJECTIVE_TYPE_MAPPING = {
@@ -226,13 +223,6 @@ def main():
         f.write(html_content)
 
     print(f"HTML-файл со структурой квестов создан: {output_file}")
-
-    # Создание BPMN диаграммы
-    all_quests = list(quests.get('Quests', {}).values())
-    bpmn_tree = create_bpmn_diagram(all_quests)
-    save_bpmn_diagram(bpmn_tree)
-
-    print("BPMN диаграмма создана и сохранена.")
 
 if __name__ == "__main__":
     main()

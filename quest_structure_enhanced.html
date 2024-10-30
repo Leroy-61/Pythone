@@ -1,0 +1,1746 @@
+<html>
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   Структура квестов
+  </title>
+  <style>
+   body { font-family: Arial, sans-serif; margin: 20px; }
+            .quest-tree { margin-left: 20px; }
+            .quest-node { border: 1px solid #ccc; margin: 10px 0; padding: 10px; background-color: #f9f9f9; }
+            .quest-children { margin-left: 40px; }
+            h1 { color: #333; }
+            h2 { color: #666; }
+            p { margin: 5px 0; }
+  </style>
+  <style>
+   .contents { 
+            background: #f0f0f0;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #666;
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .quest-link {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        .quest-link:hover {
+            text-decoration: underline;
+        }
+        #search-box {
+            padding: 10px;
+            margin: 20px 0;
+            width: 300px;
+        }
+        .highlight {
+            background-color: yellow;
+        }
+  </style>
+  <script>
+   function searchQuests() {
+            var input = document.getElementById('search-box').value.toLowerCase();
+            var questNodes = document.getElementsByClassName('quest-node');
+            
+            // Убираем предыдущие подсветки
+            var highlights = document.getElementsByClassName('highlight');
+            while(highlights.length > 0) {
+                highlights[0].classList.remove('highlight');
+            }
+            
+            for(var i = 0; i < questNodes.length; i++) {
+                var node = questNodes[i];
+                var text = node.textContent.toLowerCase();
+                
+                if(text.includes(input)) {
+                    node.style.display = '';
+                    if(input.length > 0) {
+                        node.classList.add('highlight');
+                    }
+                } else {
+                    node.style.display = 'none';
+                }
+            }
+        }
+  </script>
+ </head>
+ <body>
+  <input id="search-box" onkeyup="searchQuests()" placeholder="Поиск по квестам..." type="text"/>
+  <div class="contents" id="contents">
+   <h2>
+    Оглавление
+   </h2>
+   <p>
+    <a class="quest-link" href="#quest_1">
+     Квест 1: Добро пожаловать
+    </a>
+   </p>
+   <p>
+    <a class="quest-link" href="#quest_2">
+     Квест 2: Выбери рюкзак
+    </a>
+   </p>
+   <p>
+    <a class="quest-link" href="#quest_3">
+     Квест 3: Выбери куртку
+    </a>
+   </p>
+   <p>
+    <a class="quest-link" href="#quest_4">
+     Квест 4: Выбери штаны
+    </a>
+   </p>
+   <p>
+    <a class="quest-link" href="#quest_5">
+     Квест 5: Выбери головной убор
+    </a>
+   </p>
+   <p>
+    <a class="quest-link" href="#quest_6">
+     Квест 6: Выбери балаклаву
+    </a>
+   </p>
+   <p>
+    <a class="quest-link" href="#quest_7">
+     Квест 7: Выбери перчатки
+    </a>
+   </p>
+   <p>
+    <a class="quest-link" href="#quest_8">
+     Квест 8: Выбери обувь
+    </a>
+   </p>
+   <p>
+    <a class="quest-link" href="#quest_9">
+     Квест 9: Выбери разгруз
+    </a>
+   </p>
+   <p>
+    <a class="quest-link" href="#quest_10">
+     Квест 10: Получи оружие
+    </a>
+   </p>
+   <p>
+    <a class="quest-link" href="#quest_11">
+     Квест 11: Добраться до Деребаса
+    </a>
+   </p>
+   <p>
+    <a class="quest-link" href="#quest_12">
+     Квест 12: Повидать Сидоровича
+    </a>
+   </p>
+   <p>
+    <a class="quest-link" href="#quest_13">
+     Квест 13: Осмотреться в Древне
+    </a>
+   </p>
+   <p>
+    <a class="quest-link" href="#quest_14">
+     Квест 14: Охотничье место
+    </a>
+   </p>
+   <p>
+    <a class="quest-link" href="#quest_15">
+     Квест 15: Зачистка АТП
+    </a>
+   </p>
+   <p>
+    <a class="quest-link" href="#quest_16">
+     Квест 16: Посылка на Ферму
+    </a>
+   </p>
+   <p>
+    <a class="quest-link" href="#quest_17">
+     Квест 17: Проблемы Фермеров
+    </a>
+   </p>
+   <p>
+    <a class="quest-link" href="#quest_18">
+     Квест 18: Вернуть сигнал
+    </a>
+   </p>
+   <p>
+    <a class="quest-link" href="#quest_19">
+     Квест 19: Большая проблема
+    </a>
+   </p>
+   <p>
+    <a class="quest-link" href="#quest_20">
+     Квест 20: Вернуться к Волку
+    </a>
+   </p>
+   <p>
+    <a class="quest-link" href="#quest_21">
+     Квест 21: Заказ ученого
+    </a>
+   </p>
+   <p>
+    <a class="quest-link" href="#quest_22">
+     Квест 22: Нужная вещь
+    </a>
+   </p>
+   <p>
+    <a class="quest-link" href="#quest_23">
+     Квест 23: Нечисть с болот
+    </a>
+   </p>
+   <p>
+    <a class="quest-link" href="#quest_24">
+     Квест 24: По следу науки
+    </a>
+   </p>
+   <p>
+    <a class="quest-link" href="#quest_25">
+     Квест 25: Предупреждение
+    </a>
+   </p>
+   <p>
+    <a class="quest-link" href="#quest_26">
+     Квест 26: Связной
+    </a>
+   </p>
+   <p>
+    <a class="quest-link" href="#quest_150">
+     Квест 150: Получить репутацию Долг
+    </a>
+   </p>
+   <p>
+    <a class="quest-link" href="#quest_151">
+     Квест 151: Вступить в Долг
+    </a>
+   </p>
+   <p>
+    <a class="quest-link" href="#quest_152">
+     Квест 152: Получить репутацию Свобода
+    </a>
+   </p>
+   <p>
+    <a class="quest-link" href="#quest_153">
+     Квест 153: Вступить в Свободу
+    </a>
+   </p>
+   <p>
+    <a class="quest-link" href="#quest_154">
+     Квест 154: Репутация
+    </a>
+   </p>
+   <p>
+    <a class="quest-link" href="#quest_155">
+     Квест 155: Вступить в Нейтралы
+    </a>
+   </p>
+   <p>
+    <a class="quest-link" href="#quest_156">
+     Квест 156: ТП
+    </a>
+   </p>
+  </div>
+  <h1>
+   Структура квестов
+  </h1>
+  <div class="quest-tree">
+   <p>
+    Найдено корневых квестов: 8
+   </p>
+   <div class="quest-node" id="quest_150">
+    <h2>
+     Квест 150: Получить репутацию Долг
+    </h2>
+    <p>
+     Выдается NPC:
+     <br/>
+     ID - 150, "ГП-Хуесос"
+     <br/>
+     Фракция NPC: InvincibleObservers
+    </p>
+    <p>
+     Данные о квесте:
+    </p>
+    <p>
+     Репутация:
+     <br/>
+     Награда очками фракций:
+     <br/>
+     Dolg: 150
+    </p>
+    <p>
+     Цели:
+     <br/>
+     <strong>
+      Цель:
+     </strong>
+     Travel (ID: 150)
+     <br/>
+     <strong>
+      Описание цели:
+     </strong>
+     Долг
+    </p>
+    <div class="quest-children">
+     <p>
+      Квест с ID -1 не найден
+     </p>
+    </div>
+   </div>
+   <div class="quest-node" id="quest_151">
+    <h2>
+     Квест 151: Вступить в Долг
+    </h2>
+    <p>
+     Выдается NPC:
+     <br/>
+     ID - 150, "ГП-Хуесос"
+     <br/>
+     Фракция NPC: InvincibleObservers
+    </p>
+    <p>
+     Данные о квесте:
+    </p>
+    <p>
+     Репутация:
+     <br/>
+     Присваиваемая игроку фракция: Dolg
+     <br/>
+     Награда очками фракций:
+     <br/>
+     Dolg: 150
+    </p>
+    <p>
+     Цели:
+     <br/>
+     <strong>
+      Цель:
+     </strong>
+     Travel (ID: 151)
+     <br/>
+     <strong>
+      Описание цели:
+     </strong>
+     Долг
+    </p>
+    <div class="quest-children">
+     <p>
+      Квест с ID -1 не найден
+     </p>
+    </div>
+   </div>
+   <div class="quest-node" id="quest_152">
+    <h2>
+     Квест 152: Получить репутацию Свобода
+    </h2>
+    <p>
+     Выдается NPC:
+     <br/>
+     ID - 150, "ГП-Хуесос"
+     <br/>
+     Фракция NPC: InvincibleObservers
+    </p>
+    <p>
+     Данные о квесте:
+    </p>
+    <p>
+     Репутация:
+     <br/>
+     Награда очками фракций:
+     <br/>
+     Freedom: 150
+    </p>
+    <p>
+     Цели:
+     <br/>
+     <strong>
+      Цель:
+     </strong>
+     Travel (ID: 152)
+     <br/>
+     <strong>
+      Описание цели:
+     </strong>
+     Свобода
+    </p>
+    <div class="quest-children">
+     <p>
+      Квест с ID -1 не найден
+     </p>
+    </div>
+   </div>
+   <div class="quest-node" id="quest_153">
+    <h2>
+     Квест 153: Вступить в Свободу
+    </h2>
+    <p>
+     Выдается NPC:
+     <br/>
+     ID - 150, "ГП-Хуесос"
+     <br/>
+     Фракция NPC: InvincibleObservers
+    </p>
+    <p>
+     Данные о квесте:
+    </p>
+    <p>
+     Репутация:
+     <br/>
+     Присваиваемая игроку фракция: Freedom
+     <br/>
+     Награда очками фракций:
+     <br/>
+     Freedom: 150
+    </p>
+    <p>
+     Цели:
+     <br/>
+     <strong>
+      Цель:
+     </strong>
+     Travel (ID: 151)
+     <br/>
+     <strong>
+      Описание цели:
+     </strong>
+     Долг
+    </p>
+    <div class="quest-children">
+     <p>
+      Квест с ID -1 не найден
+     </p>
+    </div>
+   </div>
+   <div class="quest-node" id="quest_154">
+    <h2>
+     Квест 154: Репутация
+    </h2>
+    <p>
+     Выдается NPC:
+     <br/>
+     ID - 150, "ГП-Хуесос"
+     <br/>
+     Фракция NPC: InvincibleObservers
+    </p>
+    <p>
+     Данные о квесте:
+    </p>
+    <p>
+     Репутация:
+     <br/>
+     Награда очками фракций:
+     <br/>
+     Neutrals: 150
+     <br/>
+     Bandits: 160
+     <br/>
+     ClearSky: 170
+     <br/>
+     Dolg: 180
+     <br/>
+     Freedom: 190
+     <br/>
+     Monolith: 200
+    </p>
+    <p>
+     Цели:
+     <br/>
+     <strong>
+      Цель:
+     </strong>
+     Travel (ID: 154)
+     <br/>
+     <strong>
+      Описание цели:
+     </strong>
+     Нейтралы
+    </p>
+    <div class="quest-children">
+     <p>
+      Квест с ID -1 не найден
+     </p>
+    </div>
+   </div>
+   <div class="quest-node" id="quest_155">
+    <h2>
+     Квест 155: Вступить в Нейтралы
+    </h2>
+    <p>
+     Выдается NPC:
+     <br/>
+     ID - 150, "ГП-Хуесос"
+     <br/>
+     Фракция NPC: InvincibleObservers
+    </p>
+    <p>
+     Данные о квесте:
+    </p>
+    <p>
+     Репутация:
+     <br/>
+     Присваиваемая игроку фракция: Neutrals
+     <br/>
+     Награда очками фракций:
+     <br/>
+     Neutrals: 150
+    </p>
+    <p>
+     Цели:
+     <br/>
+     <strong>
+      Цель:
+     </strong>
+     Travel (ID: 155)
+     <br/>
+     <strong>
+      Описание цели:
+     </strong>
+     Нейтралы
+    </p>
+    <div class="quest-children">
+     <p>
+      Квест с ID -1 не найден
+     </p>
+    </div>
+   </div>
+   <div class="quest-node" id="quest_156">
+    <h2>
+     Квест 156: ТП
+    </h2>
+    <p>
+     Выдается NPC:
+     <br/>
+     ID - 150, "ГП-Хуесос"
+     <br/>
+     Фракция NPC: InvincibleObservers
+    </p>
+    <p>
+     Данные о квесте:
+    </p>
+    <p>
+     Репутация:
+    </p>
+    <p>
+     Цели:
+     <br/>
+     <strong>
+      Цель:
+     </strong>
+     Travel (ID: 156)
+     <br/>
+     <strong>
+      Описание цели:
+     </strong>
+     тп
+    </p>
+    <div class="quest-children">
+     <p>
+      Квест с ID -1 не найден
+     </p>
+    </div>
+   </div>
+   <div class="quest-node" id="quest_1">
+    <h2>
+     Квест 1: Добро пожаловать
+    </h2>
+    <p>
+     Данные о квесте:
+    </p>
+    <p>
+     Репутация:
+     <br/>
+     Присваиваемая игроку фракция: Neutrals
+     <br/>
+     Награда очками фракций:
+     <br/>
+     Neutrals: 1
+     <br/>
+     Bandits: 1
+     <br/>
+     ClearSky: 1
+     <br/>
+     Dolg: 1
+     <br/>
+     Freedom: 1
+     <br/>
+     Researcher: 1
+     <br/>
+     Monolith: 1
+    </p>
+    <p>
+     Цели:
+     <br/>
+     <strong>
+      Цель:
+     </strong>
+     Travel (ID: 1)
+     <br/>
+     <strong>
+      Описание цели:
+     </strong>
+     Приодеться
+    </p>
+    <div class="quest-children">
+     <div class="quest-node" id="quest_2">
+      <h2>
+       Квест 2: Выбери рюкзак
+      </h2>
+      <p>
+       Выдается NPC:
+       <br/>
+       ID - 1, "Миша Транзит"
+       <br/>
+       Фракция NPC: Neutrals
+      </p>
+      <p>
+       Данные о квесте:
+       <br/>
+       Предыдущий квест: ID 1, (Добро пожаловать)
+      </p>
+      <p>
+       Награды (Выбрать что-то одно):
+       <br/>
+       AP_bag_scav_black - 1 шт.
+       <br/>
+       AP_bag_scav_brown - 1 шт.
+       <br/>
+       AP_bag_scav_green - 1 шт.
+       <br/>
+       HuntingBag - 1 шт.
+      </p>
+      <p>
+       Репутация:
+      </p>
+      <p>
+       Цели:
+       <br/>
+       <strong>
+        Цель:
+       </strong>
+       Travel (ID: 2)
+       <br/>
+       <strong>
+        Описание цели:
+       </strong>
+       Выбери рюкзак
+      </p>
+      <div class="quest-children">
+       <div class="quest-node" id="quest_3">
+        <h2>
+         Квест 3: Выбери куртку
+        </h2>
+        <p>
+         Выдается NPC:
+         <br/>
+         ID - 1, "Миша Транзит"
+         <br/>
+         Фракция NPC: Neutrals
+        </p>
+        <p>
+         Данные о квесте:
+         <br/>
+         Предыдущий квест: ID 2, (Выбери рюкзак)
+        </p>
+        <p>
+         Награды (Выбрать что-то одно):
+         <br/>
+         Raincoat_Green - 1 шт.
+         <br/>
+         Raincoat_Black - 1 шт.
+         <br/>
+         M65Jacket_Black - 1 шт.
+         <br/>
+         GorkaEJacket_Summer - 1 шт.
+         <br/>
+         GorkaEJacket_Autumn - 1 шт.
+         <br/>
+         HuntingJacket_Brown - 1 шт.
+         <br/>
+         HuntingJacket_Spring - 1 шт.
+         <br/>
+         GorkaEJacket_PautRev - 1 шт.
+         <br/>
+         GorkaEJacket_Flat - 1 шт.
+         <br/>
+         AP_tops_tac_green - 1 шт.
+        </p>
+        <p>
+         Репутация:
+        </p>
+        <p>
+         Цели:
+         <br/>
+         <strong>
+          Цель:
+         </strong>
+         Travel (ID: 3)
+         <br/>
+         <strong>
+          Описание цели:
+         </strong>
+         Выбрать куртку
+        </p>
+        <div class="quest-children">
+         <div class="quest-node" id="quest_4">
+          <h2>
+           Квест 4: Выбери штаны
+          </h2>
+          <p>
+           Выдается NPC:
+           <br/>
+           ID - 1, "Миша Транзит"
+           <br/>
+           Фракция NPC: Neutrals
+          </p>
+          <p>
+           Данные о квесте:
+           <br/>
+           Предыдущий квест: ID 3, (Выбери куртку)
+          </p>
+          <p>
+           Награды (Выбрать что-то одно):
+           <br/>
+           AP_pants_voin_black - 1 шт.
+           <br/>
+           AP_pants_sso_green - 1 шт.
+           <br/>
+           AP_pants_battle1_green - 1 шт.
+           <br/>
+           HunterPants_Autumn - 1 шт.
+           <br/>
+           HunterPants_Brown - 1 шт.
+           <br/>
+           HunterPants_Spring - 1 шт.
+           <br/>
+           GorkaPants_PautRev - 1 шт.
+           <br/>
+           GorkaPants_Flat - 1 шт.
+           <br/>
+           GorkaPants_Summer - 1 шт.
+           <br/>
+           TTSKOPants - 1 шт.
+           <br/>
+           CargoPants_Grey - 1 шт.
+           <br/>
+           CargoPants_Green - 1 шт.
+           <br/>
+           CargoPants_Black - 1 шт.
+           <br/>
+           CargoPants_Beige - 1 шт.
+          </p>
+          <p>
+           Репутация:
+          </p>
+          <p>
+           Цели:
+           <br/>
+           <strong>
+            Цель:
+           </strong>
+           Travel (ID: 4)
+           <br/>
+           <strong>
+            Описание цели:
+           </strong>
+           Выбери штаны
+          </p>
+          <div class="quest-children">
+           <div class="quest-node" id="quest_5">
+            <h2>
+             Квест 5: Выбери головной убор
+            </h2>
+            <p>
+             Выдается NPC:
+             <br/>
+             ID - 1, "Миша Транзит"
+             <br/>
+             Фракция NPC: Neutrals
+            </p>
+            <p>
+             Данные о квесте:
+             <br/>
+             Предыдущий квест: ID 4, (Выбери штаны)
+            </p>
+            <p>
+             Награды (Выбрать что-то одно):
+             <br/>
+             AP_head_beanie3_black - 1 шт.
+             <br/>
+             AP_head_cap_mil_sand - 1 шт.
+             <br/>
+             AP_head_ushanka_green - 1 шт.
+             <br/>
+             BeanieHat_Green - 1 шт.
+             <br/>
+             BeanieHat_Black - 1 шт.
+             <br/>
+             BoonieHat_Black - 1 шт.
+            </p>
+            <p>
+             Репутация:
+            </p>
+            <p>
+             Цели:
+             <br/>
+             <strong>
+              Цель:
+             </strong>
+             Travel (ID: 5)
+             <br/>
+             <strong>
+              Описание цели:
+             </strong>
+             Выбери головной убор
+            </p>
+            <div class="quest-children">
+             <div class="quest-node" id="quest_6">
+              <h2>
+               Квест 6: Выбери балаклаву
+              </h2>
+              <p>
+               Выдается NPC:
+               <br/>
+               ID - 1, "Миша Транзит"
+               <br/>
+               Фракция NPC: Neutrals
+              </p>
+              <p>
+               Данные о квесте:
+               <br/>
+               Предыдущий квест: ID 5, (Выбери головной убор)
+              </p>
+              <p>
+               Награды (Выбрать что-то одно):
+               <br/>
+               AP_mask_bandmask2_black - 1 шт.
+               <br/>
+               AP_mask_bandmask_green - 1 шт.
+               <br/>
+               BalaclavaMask_Black - 1 шт.
+               <br/>
+               BalaclavaMask_Green - 1 шт.
+               <br/>
+               Balaclava3Holes_Black - 1 шт.
+               <br/>
+               Balaclava3Holes_Green - 1 шт.
+              </p>
+              <p>
+               Репутация:
+              </p>
+              <p>
+               Цели:
+               <br/>
+               <strong>
+                Цель:
+               </strong>
+               Travel (ID: 6)
+               <br/>
+               <strong>
+                Описание цели:
+               </strong>
+               Выбери балаклаву
+              </p>
+              <div class="quest-children">
+               <div class="quest-node" id="quest_7">
+                <h2>
+                 Квест 7: Выбери перчатки
+                </h2>
+                <p>
+                 Выдается NPC:
+                 <br/>
+                 ID - 1, "Миша Транзит"
+                 <br/>
+                 Фракция NPC: Neutrals
+                </p>
+                <p>
+                 Данные о квесте:
+                 <br/>
+                 Предыдущий квест: ID 6, (Выбери балаклаву)
+                </p>
+                <p>
+                 Награды (Выбрать что-то одно):
+                 <br/>
+                 AP_gloves_combat_black - 1 шт.
+                 <br/>
+                 AP_gloves_tactic_sand - 1 шт.
+                 <br/>
+                 AP_gloves_tactic_green - 1 шт.
+                 <br/>
+                 WoolGlovesFingerless_Green - 1 шт.
+                 <br/>
+                 WoolGlovesFingerless_Black - 1 шт.
+                </p>
+                <p>
+                 Репутация:
+                </p>
+                <p>
+                 Цели:
+                 <br/>
+                 <strong>
+                  Цель:
+                 </strong>
+                 Travel (ID: 7)
+                 <br/>
+                 <strong>
+                  Описание цели:
+                 </strong>
+                 Выбери перчатки
+                </p>
+                <div class="quest-children">
+                 <div class="quest-node" id="quest_8">
+                  <h2>
+                   Квест 8: Выбери обувь
+                  </h2>
+                  <p>
+                   Выдается NPC:
+                   <br/>
+                   ID - 1, "Миша Транзит"
+                   <br/>
+                   Фракция NPC: Neutrals
+                  </p>
+                  <p>
+                   Данные о квесте:
+                   <br/>
+                   Предыдущий квест: ID 7, (Выбери перчатки)
+                  </p>
+                  <p>
+                   Награды (Выбрать что-то одно):
+                   <br/>
+                   AP_boots_raptor_sand - 1 шт.
+                   <br/>
+                   AP_boots_raptor_green - 1 шт.
+                   <br/>
+                   HikingBoots_Black - 1 шт.
+                   <br/>
+                   HikingBoots_Brown - 1 шт.
+                  </p>
+                  <p>
+                   Репутация:
+                  </p>
+                  <p>
+                   Цели:
+                   <br/>
+                   <strong>
+                    Цель:
+                   </strong>
+                   Travel (ID: 8)
+                   <br/>
+                   <strong>
+                    Описание цели:
+                   </strong>
+                   Выбери обувь
+                  </p>
+                  <div class="quest-children">
+                   <div class="quest-node" id="quest_9">
+                    <h2>
+                     Квест 9: Выбери разгруз
+                    </h2>
+                    <p>
+                     Выдается NPC:
+                     <br/>
+                     ID - 1, "Миша Транзит"
+                     <br/>
+                     Фракция NPC: Neutrals
+                    </p>
+                    <p>
+                     Данные о квесте:
+                     <br/>
+                     Предыдущий квест: ID 8, (Выбери обувь)
+                    </p>
+                    <p>
+                     Награды (Выбрать что-то одно):
+                     <br/>
+                     AP_unload_chikom_sand - 1 шт.
+                     <br/>
+                     AP_unload_chikom_green - 1 шт.
+                     <br/>
+                     AP_unload_chikom_emr - 1 шт.
+                     <br/>
+                     AP_unload_chikom_frog - 1 шт.
+                     <br/>
+                     AP_unload_chikom_black - 1 шт.
+                    </p>
+                    <p>
+                     Репутация:
+                    </p>
+                    <p>
+                     Цели:
+                     <br/>
+                     <strong>
+                      Цель:
+                     </strong>
+                     Travel (ID: 9)
+                     <br/>
+                     <strong>
+                      Описание цели:
+                     </strong>
+                     Выбери разгруз
+                    </p>
+                    <div class="quest-children">
+                     <div class="quest-node" id="quest_10">
+                      <h2>
+                       Квест 10: Получи оружие
+                      </h2>
+                      <p>
+                       Выдается NPC:
+                       <br/>
+                       ID - 1, "Миша Транзит"
+                       <br/>
+                       Фракция NPC: Neutrals
+                      </p>
+                      <p>
+                       Данные о квесте:
+                       <br/>
+                       Предыдущий квест: ID 9, (Выбери разгруз)
+                      </p>
+                      <p>
+                       Награды (Получить все):
+                       <br/>
+                       Kuvalda_M9A3 - 1 шт.
+                       <br/>
+                       Kuvalda_Mag_M9A3_17rnd - 2 шт.
+                      </p>
+                      <p>
+                       Репутация:
+                      </p>
+                      <p>
+                       Цели:
+                       <br/>
+                       <strong>
+                        Цель:
+                       </strong>
+                       Travel (ID: 10)
+                       <br/>
+                       <strong>
+                        Описание цели:
+                       </strong>
+                       Выбери оружие
+                      </p>
+                      <div class="quest-children">
+                       <div class="quest-node" id="quest_11">
+                        <h2>
+                         Квест 11: Добраться до Деребаса
+                        </h2>
+                        <p>
+                         Выдается NPC:
+                         <br/>
+                         ID - 1, "Миша Транзит"
+                         <br/>
+                         Фракция NPC: Neutrals
+                        </p>
+                        <p>
+                         Данные о квесте:
+                         <br/>
+                         Предыдущий квест: ID 10, (Получи оружие)
+                        </p>
+                        <p>
+                         Репутация:
+                        </p>
+                        <p>
+                         Цели:
+                         <br/>
+                         <strong>
+                          Цель:
+                         </strong>
+                         Travel (ID: 11)
+                         <br/>
+                         <strong>
+                          Описание цели:
+                         </strong>
+                         Добратся до Деревни
+                        </p>
+                        <div class="quest-children">
+                         <div class="quest-node" id="quest_12">
+                          <h2>
+                           Квест 12: Повидать Сидоровича
+                          </h2>
+                          <p>
+                           Выдается NPC:
+                           <br/>
+                           ID - 2, "Волк"
+                           <br/>
+                           Фракция NPC: Neutrals
+                          </p>
+                          <p>
+                           Данные о квесте:
+                           <br/>
+                           Предыдущий квест: ID 11, (Добраться до Деребаса)
+                          </p>
+                          <p>
+                           Награды (Получить все):
+                           <br/>
+                           BandageDressing - 1 шт.
+                          </p>
+                          <p>
+                           Репутация:
+                          </p>
+                          <p>
+                           Цели:
+                           <br/>
+                           <strong>
+                            Цель:
+                           </strong>
+                           Travel (ID: 12)
+                           <br/>
+                           <strong>
+                            Описание цели:
+                           </strong>
+                           Повидать Сидора
+                          </p>
+                          <div class="quest-children">
+                           <div class="quest-node" id="quest_13">
+                            <h2>
+                             Квест 13: Осмотреться в Древне
+                            </h2>
+                            <p>
+                             Выдается NPC:
+                             <br/>
+                             ID - 2, "Волк"
+                             <br/>
+                             Фракция NPC: Neutrals
+                            </p>
+                            <p>
+                             Данные о квесте:
+                             <br/>
+                             Предыдущий квест: ID 12, (Повидать Сидоровича)
+                            </p>
+                            <p>
+                             Награды (Получить все):
+                             <br/>
+                             HuntingKnife - 1 шт.
+                            </p>
+                            <p>
+                             Репутация:
+                            </p>
+                            <p>
+                             Цели:
+                             <br/>
+                             <strong>
+                              Цель:
+                             </strong>
+                             Travel (ID: 1301)
+                             <br/>
+                             <strong>
+                              Описание цели:
+                             </strong>
+                             Осмотреть водоколонку
+                             <br/>
+                             <strong>
+                              Цель:
+                             </strong>
+                             Travel (ID: 1302)
+                             <br/>
+                             <strong>
+                              Описание цели:
+                             </strong>
+                             Осмотреть схрон
+                            </p>
+                            <div class="quest-children">
+                             <div class="quest-node" id="quest_14">
+                              <h2>
+                               Квест 14: Охотничье место
+                              </h2>
+                              <p>
+                               Выдается NPC:
+                               <br/>
+                               ID - 2, "Волк"
+                               <br/>
+                               Фракция NPC: Neutrals
+                              </p>
+                              <p>
+                               Данные о квесте:
+                               <br/>
+                               Предыдущий квест: ID 13, (Осмотреться в Древне)
+                              </p>
+                              <p>
+                               Награды (Выбрать что-то одно):
+                               <br/>
+                               AP_belt_sovet - 1 шт.
+                               <br/>
+                               AP_belt_leather1 - 1 шт.
+                               <br/>
+                               AP_belt_textile1 - 1 шт.
+                               <br/>
+                               AP_belt_tactical1 - 1 шт.
+                              </p>
+                              <p>
+                               Репутация:
+                              </p>
+                              <p>
+                               Цели:
+                               <br/>
+                               <strong>
+                                Цель:
+                               </strong>
+                               Collection (ID: 14)
+                               <br/>
+                               <strong>
+                                Описание цели:
+                               </strong>
+                               Принести мясо оленя и свиньи Волку
+                              </p>
+                              <div class="quest-children">
+                               <div class="quest-node" id="quest_15">
+                                <h2>
+                                 Квест 15: Зачистка АТП
+                                </h2>
+                                <p>
+                                 Выдается NPC:
+                                 <br/>
+                                 ID - 2, "Волк"
+                                 <br/>
+                                 Фракция NPC: Neutrals
+                                </p>
+                                <p>
+                                 Данные о квесте:
+                                 <br/>
+                                 Предыдущий квест: ID 14, (Охотничье место)
+                                </p>
+                                <p>
+                                 Награды (Получить все):
+                                 <br/>
+                                 ExpansionBanknoteEuro - 3000 шт.
+                                 <br/>
+                                 Kuvalda_TOZ106 - 1 шт.
+                                 <br/>
+                                 Kuvalda_Mag_TOZ106_5Rnd - 2 шт.
+                                </p>
+                                <p>
+                                 Репутация:
+                                 <br/>
+                                 Награда очками фракций:
+                                 <br/>
+                                 Neutrals: 20
+                                </p>
+                                <p>
+                                 Цели:
+                                 <br/>
+                                 <strong>
+                                  Цель:
+                                 </strong>
+                                 Target (ID: 15)
+                                 <br/>
+                                 <strong>
+                                  Описание цели:
+                                 </strong>
+                                 Убить 10 зомбированных на АТП
+                                </p>
+                                <div class="quest-children">
+                                 <div class="quest-node" id="quest_16">
+                                  <h2>
+                                   Квест 16: Посылка на Ферму
+                                  </h2>
+                                  <p>
+                                   Выдается NPC:
+                                   <br/>
+                                   ID - 2, "Волк"
+                                   <br/>
+                                   Фракция NPC: Neutrals
+                                  </p>
+                                  <p>
+                                   Данные о квесте:
+                                   <br/>
+                                   Предыдущий квест: ID 15, (Зачистка АТП)
+                                  </p>
+                                  <p>
+                                   Награды (Получить все):
+                                   <br/>
+                                   AP_canteen_sov - 1 шт.
+                                  </p>
+                                  <p>
+                                   Репутация:
+                                  </p>
+                                  <p>
+                                   Цели:
+                                   <br/>
+                                   <strong>
+                                    Цель:
+                                   </strong>
+                                   Delivery (ID: 16)
+                                   <br/>
+                                   <strong>
+                                    Описание цели:
+                                   </strong>
+                                   Отнести посылку Серому
+                                  </p>
+                                  <div class="quest-children">
+                                   <div class="quest-node" id="quest_17">
+                                    <h2>
+                                     Квест 17: Проблемы Фермеров
+                                    </h2>
+                                    <p>
+                                     Выдается NPC:
+                                     <br/>
+                                     ID - 3, "Паша Серый"
+                                     <br/>
+                                     Фракция NPC: Neutrals
+                                    </p>
+                                    <p>
+                                     Данные о квесте:
+                                     <br/>
+                                     Предыдущий квест: ID 16, (Посылка на Ферму)
+                                    </p>
+                                    <p>
+                                     Награды (Получить все):
+                                     <br/>
+                                     Ammo_12gaAP20 - 30 шт.
+                                     <br/>
+                                     Kuvalda_Mag_TOZ106_5Rnd - 1 шт.
+                                    </p>
+                                    <p>
+                                     Репутация:
+                                     <br/>
+                                     Награда очками фракций:
+                                     <br/>
+                                     Neutrals: 20
+                                    </p>
+                                    <p>
+                                     Цели:
+                                     <br/>
+                                     <strong>
+                                      Цель:
+                                     </strong>
+                                     Target (ID: 17)
+                                     <br/>
+                                     <strong>
+                                      Описание цели:
+                                     </strong>
+                                     Убить 10 снорков в деревушке
+                                    </p>
+                                    <div class="quest-children">
+                                     <div class="quest-node" id="quest_18">
+                                      <h2>
+                                       Квест 18: Вернуть сигнал
+                                      </h2>
+                                      <p>
+                                       Выдается NPC:
+                                       <br/>
+                                       ID - 3, "Паша Серый"
+                                       <br/>
+                                       Фракция NPC: Neutrals
+                                      </p>
+                                      <p>
+                                       Данные о квесте:
+                                       <br/>
+                                       Предыдущий квест: ID 17, (Проблемы Фермеров)
+                                      </p>
+                                      <p>
+                                       Награды (Получить все):
+                                       <br/>
+                                       Headtorch_Grey - 1 шт.
+                                      </p>
+                                      <p>
+                                       Репутация:
+                                      </p>
+                                      <p>
+                                       Цели:
+                                       <br/>
+                                       <strong>
+                                        Цель:
+                                       </strong>
+                                       Collection (ID: 18)
+                                       <br/>
+                                       <strong>
+                                        Описание цели:
+                                       </strong>
+                                       Принести Серому отвертку
+                                      </p>
+                                      <div class="quest-children">
+                                       <div class="quest-node" id="quest_19">
+                                        <h2>
+                                         Квест 19: Большая проблема
+                                        </h2>
+                                        <p>
+                                         Выдается NPC:
+                                         <br/>
+                                         ID - 3, "Паша Серый"
+                                         <br/>
+                                         Фракция NPC: Neutrals
+                                        </p>
+                                        <p>
+                                         Данные о квесте:
+                                         <br/>
+                                         Предыдущий квест: ID 18, (Вернуть сигнал)
+                                        </p>
+                                        <p>
+                                         Награды (Выбрать что-то одно):
+                                         <br/>
+                                         AP_vest_platecarrier_black - 1 шт.
+                                         <br/>
+                                         AP_vest_platecarrier_green - 1 шт.
+                                         <br/>
+                                         AP_vest_platecarrier_sand2 - 1 шт.
+                                         <br/>
+                                         AP_vest_platecarrier_sand - 1 шт.
+                                         <br/>
+                                         AP_vest_platecarrier_camo - 1 шт.
+                                         <br/>
+                                         AP_vest_platecarrier_white - 1 шт.
+                                        </p>
+                                        <p>
+                                         Репутация:
+                                         <br/>
+                                         Награда очками фракций:
+                                         <br/>
+                                         Neutrals: 50
+                                        </p>
+                                        <p>
+                                         Цели:
+                                         <br/>
+                                         <strong>
+                                          Цель:
+                                         </strong>
+                                         Target (ID: 19)
+                                         <br/>
+                                         <strong>
+                                          Описание цели:
+                                         </strong>
+                                         Убить медведя
+                                        </p>
+                                        <div class="quest-children">
+                                         <div class="quest-node" id="quest_20">
+                                          <h2>
+                                           Квест 20: Вернуться к Волку
+                                          </h2>
+                                          <p>
+                                           Выдается NPC:
+                                           <br/>
+                                           ID - 3, "Паша Серый"
+                                           <br/>
+                                           Фракция NPC: Neutrals
+                                          </p>
+                                          <p>
+                                           Данные о квесте:
+                                           <br/>
+                                           Предыдущий квест: ID 19, (Большая проблема)
+                                          </p>
+                                          <p>
+                                           Репутация:
+                                          </p>
+                                          <p>
+                                           Цели:
+                                           <br/>
+                                           <strong>
+                                            Цель:
+                                           </strong>
+                                           Travel (ID: 20)
+                                           <br/>
+                                           <strong>
+                                            Описание цели:
+                                           </strong>
+                                           Вернутся к Волку
+                                          </p>
+                                          <div class="quest-children">
+                                           <div class="quest-node" id="quest_21">
+                                            <h2>
+                                             Квест 21: Заказ ученого
+                                            </h2>
+                                            <p>
+                                             Выдается NPC:
+                                             <br/>
+                                             ID - 2, "Волк"
+                                             <br/>
+                                             Фракция NPC: Neutrals
+                                            </p>
+                                            <p>
+                                             Данные о квесте:
+                                             <br/>
+                                             Предыдущий квест: ID 20, (Вернуться к Волку)
+                                            </p>
+                                            <p>
+                                             Репутация:
+                                            </p>
+                                            <p>
+                                             Цели:
+                                             <br/>
+                                             <strong>
+                                              Цель:
+                                             </strong>
+                                             Travel (ID: 21)
+                                             <br/>
+                                             <strong>
+                                              Описание цели:
+                                             </strong>
+                                             Добрастя до ученого на военном блокпосту
+                                            </p>
+                                            <div class="quest-children">
+                                             <div class="quest-node" id="quest_22">
+                                              <h2>
+                                               Квест 22: Нужная вещь
+                                              </h2>
+                                              <p>
+                                               Выдается NPC:
+                                               <br/>
+                                               ID - 4, "Некрасов"
+                                               <br/>
+                                               Фракция NPC: Researcher
+                                              </p>
+                                              <p>
+                                               Данные о квесте:
+                                               <br/>
+                                               Предыдущий квест: ID 21, (Заказ ученого)
+                                              </p>
+                                              <p>
+                                               Награды (Получить все):
+                                               <br/>
+                                               GP5GasMask - 1 шт.
+                                               <br/>
+                                               GasMask_Filter - 1 шт.
+                                              </p>
+                                              <p>
+                                               Репутация:
+                                              </p>
+                                              <p>
+                                               Цели:
+                                               <br/>
+                                               <strong>
+                                                Цель:
+                                               </strong>
+                                               Travel (ID: 22)
+                                               <br/>
+                                               <strong>
+                                                Описание цели:
+                                               </strong>
+                                               Взять противогаз у ученого
+                                              </p>
+                                              <div class="quest-children">
+                                               <div class="quest-node" id="quest_23">
+                                                <h2>
+                                                 Квест 23: Нечисть с болот
+                                                </h2>
+                                                <p>
+                                                 Выдается NPC:
+                                                 <br/>
+                                                 ID - 4, "Некрасов"
+                                                 <br/>
+                                                 Фракция NPC: Researcher
+                                                </p>
+                                                <p>
+                                                 Данные о квесте:
+                                                 <br/>
+                                                 Предыдущий квест: ID 22, (Нужная вещь)
+                                                </p>
+                                                <p>
+                                                 Награды (Получить все):
+                                                 <br/>
+                                                 GPSReceiver - 1 шт.
+                                                </p>
+                                                <p>
+                                                 Репутация:
+                                                </p>
+                                                <p>
+                                                 Цели:
+                                                 <br/>
+                                                 <strong>
+                                                  Цель:
+                                                 </strong>
+                                                 Travel (ID: 2301)
+                                                 <br/>
+                                                 <strong>
+                                                  Описание цели:
+                                                 </strong>
+                                                 Проверить ферму севернее от времянки
+                                                 <br/>
+                                                 <strong>
+                                                  Цель:
+                                                 </strong>
+                                                 Target (ID: 2302)
+                                                 <br/>
+                                                 <strong>
+                                                  Описание цели:
+                                                 </strong>
+                                                 Убить 5 кровососов на ферме
+                                                </p>
+                                                <div class="quest-children">
+                                                 <div class="quest-node" id="quest_24">
+                                                  <h2>
+                                                   Квест 24: По следу науки
+                                                  </h2>
+                                                  <p>
+                                                   Выдается NPC:
+                                                   <br/>
+                                                   ID - 4, "Некрасов"
+                                                   <br/>
+                                                   Фракция NPC: Researcher
+                                                  </p>
+                                                  <p>
+                                                   Данные о квесте:
+                                                   <br/>
+                                                   Предыдущий квест: ID 23, (Нечисть с болот)
+                                                  </p>
+                                                  <p>
+                                                   Награды (Получить все):
+                                                   <br/>
+                                                   Kuvalda_MP40 - 1 шт.
+                                                   <br/>
+                                                   Kuvalda_Mag_MP40_32rnd - 2 шт.
+                                                  </p>
+                                                  <p>
+                                                   Репутация:
+                                                  </p>
+                                                  <p>
+                                                   Цели:
+                                                   <br/>
+                                                   <strong>
+                                                    Цель:
+                                                   </strong>
+                                                   Travel (ID: 2401)
+                                                   <br/>
+                                                   <strong>
+                                                    Описание цели:
+                                                   </strong>
+                                                   Проверить три сигнала
+                                                   <br/>
+                                                   <strong>
+                                                    Цель:
+                                                   </strong>
+                                                   Travel (ID: 2402)
+                                                   <br/>
+                                                   <strong>
+                                                    Описание цели:
+                                                   </strong>
+                                                   Проверить три сигнала
+                                                   <br/>
+                                                   <strong>
+                                                    Цель:
+                                                   </strong>
+                                                   Travel (ID: 2403)
+                                                   <br/>
+                                                   <strong>
+                                                    Описание цели:
+                                                   </strong>
+                                                   Проверить три сигнала
+                                                  </p>
+                                                  <div class="quest-children">
+                                                   <div class="quest-node" id="quest_25">
+                                                    <h2>
+                                                     Квест 25: Предупреждение
+                                                    </h2>
+                                                    <p>
+                                                     Выдается NPC:
+                                                     <br/>
+                                                     ID - 4, "Некрасов"
+                                                     <br/>
+                                                     Фракция NPC: Researcher
+                                                    </p>
+                                                    <p>
+                                                     Данные о квесте:
+                                                     <br/>
+                                                     Предыдущий квест: ID 24, (По следу науки)
+                                                    </p>
+                                                    <p>
+                                                     Репутация:
+                                                    </p>
+                                                    <p>
+                                                     Цели:
+                                                     <br/>
+                                                     <strong>
+                                                      Цель:
+                                                     </strong>
+                                                     Travel (ID: 25)
+                                                     <br/>
+                                                     <strong>
+                                                      Описание цели:
+                                                     </strong>
+                                                     Предупредить Волка
+                                                    </p>
+                                                    <div class="quest-children">
+                                                     <div class="quest-node" id="quest_26">
+                                                      <h2>
+                                                       Квест 26: Связной
+                                                      </h2>
+                                                      <p>
+                                                       Выдается NPC:
+                                                       <br/>
+                                                       ID - 2, "Волк"
+                                                       <br/>
+                                                       Фракция NPC: Neutrals
+                                                      </p>
+                                                      <p>
+                                                       Данные о квесте:
+                                                       <br/>
+                                                       Предыдущий квест: ID 25, (Предупреждение)
+                                                      </p>
+                                                      <p>
+                                                       Репутация:
+                                                      </p>
+                                                      <p>
+                                                       Цели:
+                                                       <br/>
+                                                       <strong>
+                                                        Цель:
+                                                       </strong>
+                                                       Delivery (ID: 26)
+                                                       <br/>
+                                                       <strong>
+                                                        Описание цели:
+                                                       </strong>
+                                                       Встретится с Оком Зоны
+                                                      </p>
+                                                      <div class="quest-children">
+                                                       <p>
+                                                        Квест с ID 27 не найден
+                                                       </p>
+                                                      </div>
+                                                     </div>
+                                                    </div>
+                                                   </div>
+                                                  </div>
+                                                 </div>
+                                                </div>
+                                               </div>
+                                              </div>
+                                             </div>
+                                            </div>
+                                           </div>
+                                          </div>
+                                         </div>
+                                        </div>
+                                       </div>
+                                      </div>
+                                     </div>
+                                    </div>
+                                   </div>
+                                  </div>
+                                 </div>
+                                </div>
+                               </div>
+                              </div>
+                             </div>
+                            </div>
+                           </div>
+                          </div>
+                         </div>
+                        </div>
+                       </div>
+                      </div>
+                     </div>
+                    </div>
+                   </div>
+                  </div>
+                 </div>
+                </div>
+               </div>
+              </div>
+             </div>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+  <a class="back-to-top" href="#contents">
+   Наверх
+  </a>
+ </body>
+</html>
