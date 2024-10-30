@@ -187,7 +187,7 @@ def create_quest_html(quests, npcs, objectives_data):
     return html_content
 
 def main():
-    base_path = r'C:\Users\kiril\Documents\GitHub\Areal\profiles\ExpansionMod\Quests'
+    base_path = r'F:\Modding\Areal\profiles\ExpansionMod\Quests'
 
     print("Импорт данных квестов...")
     quests = import_json_files(os.path.join(base_path, 'Quests'))
