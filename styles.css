@@ -1,0 +1,125 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 20px auto;
+    max-width: 800px;
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
+}
+
+h1 {
+    color: #2E4053;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+h2 {
+    color: #2874A6;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
+    margin-top: 20px;
+    cursor: default;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+li {
+    background-color: #fff;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+}
+
+li h2 {
+    margin-top: 0;
+}
+
+li ul {
+    margin-top: 10px;
+}
+
+strong {
+    color: #145A32;
+}
+
+.objective-description {
+    margin-top: 5px;
+    font-style: italic;
+}
+
+.npc-list, .quest-data, .reputation, .objectives {
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.reward-list, .reputation-list, .objectives-list {
+    margin-left: 20px;
+    margin-top: 5px;
+}
+
+a {
+    color: #2874A6;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.npc-list h3, .quest-data h3, .reputation h3, .objectives h3 {
+    color: #145A32;
+    margin-bottom: 10px;
+}
+
+.reward-list h3, .reputation-list h3, .objectives-list h3 {
+    color: #2874A6;
+    margin-bottom: 10px;
+}
+
+/* Дополнительные стили для улучшения визуального восприятия */
+.quest-container {
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.quest-container h2 {
+    margin: 0 0 10px;
+    font-size: 1.5em;
+    color: #34495E;
+}
+
+.quest-container ul {
+    padding-left: 20px;
+    list-style-type: disc;
+}
+
+.quest-container ul ul {
+    list-style-type: circle;
+}
+
+.quest-container li {
+    margin-bottom: 5px;
+}
+
+.quest-container .objective-description {
+    margin-top: 5px;
+    font-style: italic;
+    color: #555;
+}
+
+.quest-container h3 {
+    margin-bottom: 5px;
+    color: #1A5276;
+}
+
+.quest-container strong {
+    color: #1E8449;
+}

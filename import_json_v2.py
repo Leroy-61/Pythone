@@ -3,17 +3,18 @@ import json
 import html
 
 # Словарь для сопоставления типов целей с их текстовыми значениями
+# Словарь для сопоставления типов целей с их текстовыми значениями
 OBJECTIVE_TYPE_MAPPING = {
-    2: "TARGET",
-    3: "TRAVEL",
-    4: "COLLECT",
-    5: "DELIVERY",
-    6: "TREASUREHUNT",
-    7: "AIPATROL",
-    8: "AICAMP",
+    2: "Target",
+    3: "Travel",
+    4: "Collection",
+    5: "Delivery",
+    6: "TreasureHunt",
+    7: "AIPatrol",
+    8: "AICamp",
     9: "AIVIP",
-    10: "ACTION",
-    11: "CRAFTING"
+    10: "Action",
+    11: "Crafting"
 }
 
 # Функция для чтения JSON файлов из директории
@@ -45,7 +46,6 @@ def import_json_files(directory):
                     print(f"Ошибка при чтении файла: {file_path} - {str(e)}")
     return data
 
-# Извлечение описания цели из файлов в папках, соответствующих типам целей
 def get_objective_description(objective_id, objective_type, objectives_data):
     # Получаем текстовое название типа цели
     objective_type_name = OBJECTIVE_TYPE_MAPPING.get(objective_type)
@@ -53,8 +53,13 @@ def get_objective_description(objective_id, objective_type, objectives_data):
         print(f"Неподдерживаемый тип цели: {objective_type}")
         return None, None
     
-    # Проверяем, есть ли данные для данного типа цели
-    objective_folder = objectives_data.get(objective_type_name)
+    # Приводим названия к одному регистру для сопоставления
+    objective_folder = None
+    for key in objectives_data.keys():
+        if key.lower() == objective_type_name.lower():
+            objective_folder = objectives_data[key]
+            break
+    
     if not objective_folder:
         print(f"Данные для типа цели '{objective_type_name}' отсутствуют.")
         return objective_type_name, 'Описание отсутствует'
@@ -68,10 +73,17 @@ def get_objective_description(objective_id, objective_type, objectives_data):
         print(f"Цель с ID {objective_id} для типа '{objective_type_name}' не найдена.")
         return objective_type_name, 'Описание отсутствует'
 
-# Функция для создания HTML контента
 def create_quest_html(quests, npcs, objectives_data):
-    html_content = "<html><head><title>Структура квестов</title></head><body>"
-    html_content += "<h1>Структура квестов</h1>"
+    html_content = """
+    <html>
+    <head>
+        <meta charset='UTF-8'>
+        <title>Структура квестов</title>
+        <link rel="stylesheet" type="text/css" href="styles.css">
+    </head>
+    <body>
+    <h1>Структура квестов</h1>
+    """
     
     if not quests or 'Quests' not in quests:
         html_content += "<p>Нет данных о квестах.</p>"
@@ -82,25 +94,22 @@ def create_quest_html(quests, npcs, objectives_data):
     sorted_quests = sorted(quests['Quests'].items(), key=lambda x: int(x[0]))
 
     for index, (quest_id, quest) in enumerate(sorted_quests, start=1):
-        html_content += f"<li><h2>Квест {index} (ID: {quest_id}): {html.escape(quest.get('Title', ''))}</h2>"
-        html_content += "<ul>"
-
+        html_content += f"<li><div style='border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;'>"
+        html_content += f"<h2 style='margin-top: 0;'>Квест {index} (ID: {quest_id}): {html.escape(quest.get('Title', ''))}</h2>"
+        
         # NPC, выдающие квест
         if quest.get('QuestGiverIDs', []):
-            html_content += "<li>Выдается NPC:"
-            html_content += "<ul>"
+            html_content += "<p>Выдается NPC:"
             for npc_id in quest.get('QuestGiverIDs', []):
                 npc = npcs.get('NPCs', {}).get(str(npc_id))
                 if npc:
-                    html_content += f"<li>ID - {npc_id}, \"{html.escape(npc.get('NPCName', ''))}\"</li>"
-                    html_content += f"<li>Фракция NPC: {html.escape(npc.get('NPCFaction', 'Нет данных'))}</li>"
+                    html_content += f"<br>ID - {npc_id}, \"{html.escape(npc.get('NPCName', ''))}\""
+                    html_content += f"<br>Фракция NPC: {html.escape(npc.get('NPCFaction', 'Нет данных'))}"
                 else:
-                    html_content += f"<li>NPC {npc_id}: Данные отсутствуют</li>"
-            html_content += "</ul></li>"
-
+                    html_content += f"<br>NPC {npc_id}: Данные отсутствуют"
+        
         # Данные о квесте и связи с другими квестами
-        html_content += "<li>Данные о квесте:"
-        html_content += "<ul>"
+        html_content += "<p>Данные о квесте:"
         
         # Предыдущий квест
         pre_quest_ids = quest.get('PreQuestIDs', [])
@@ -108,64 +117,56 @@ def create_quest_html(quests, npcs, objectives_data):
             for pre_quest_id in pre_quest_ids:
                 pre_quest = quests['Quests'].get(str(pre_quest_id))
                 if pre_quest:
-                    html_content += f"<li>Предыдущий квест: ID {pre_quest_id}, ({html.escape(pre_quest.get('Title', 'Название неизвестно'))})</li>"
+                    html_content += f"<br>Предыдущий квест: ID {pre_quest_id}, ({html.escape(pre_quest.get('Title', 'Название неизвестно'))})"
                 else:
-                    html_content += f"<li>Предыдущий квест: ID {pre_quest_id}, (Данные отсутствуют)</li>"
+                    html_content += f"<br>Предыдущий квест: ID {pre_quest_id}, (Данные отсутствуют)"
         
         # Следующий квест
         follow_up_quest = quest.get('FollowUpQuest')
         if follow_up_quest:
             next_quest = quests['Quests'].get(str(follow_up_quest))
             if next_quest:
-                html_content += f"<li>Следующий квест: ID {follow_up_quest}, ({html.escape(next_quest.get('Title', 'Название неизвестно'))})</li>"
+                html_content += f"<br>Следующий квест: ID {follow_up_quest}, ({html.escape(next_quest.get('Title', 'Название неизвестно'))})"
             else:
-                html_content += f"<li>Следующий квест: ID {follow_up_quest}, (Данные отсутствуют)</li>"
+                html_content += f"<br>Следующий квест: ID {follow_up_quest}, (Данные отсутствуют)"
 
         # Обработка наград
         rewards = quest.get('Rewards', [])
         if rewards:
             reward_selection = "Выбрать что-то одно" if quest.get('NeedToSelectReward') == 1 else "Получить все"
-            html_content += f"<li>Награды ({reward_selection}):"
-            html_content += "<ul>"
+            html_content += f"<p>Награды ({reward_selection}):"
             for reward in rewards:
                 reward_text = f"{html.escape(reward['ClassName'])} - {reward['Amount']} шт."
-                html_content += f"<li>{reward_text}</li>"
-            html_content += "</ul></li>"
+                html_content += f"<br>{reward_text}"
 
         # Обработка репутации
-        html_content += "<li>Репутация:"
-        html_content += "<ul>"
+        html_content += "<p>Репутация:"
 
         # Требуемая фракция
         required_faction = quest.get('RequiredFaction')
         if required_faction:
-            html_content += f"<li>Требуемая фракция: {html.escape(required_faction)}</li>"
+            html_content += f"<br>Требуемая фракция: {html.escape(required_faction)}"
 
         # Требуемое количество очков репутации (если не -1)
         reputation_requirement = quest.get('ReputationRequirement')
         if reputation_requirement is not None and reputation_requirement != -1:
-            html_content += f"<li>Требуемое количество очков репутации: {reputation_requirement}</li>"
+            html_content += f"<br>Требуемое количество очков репутации: {reputation_requirement}"
 
         # Присваиваемая игроку фракция
         faction_reward = quest.get('FactionReward')
         if faction_reward:
-            html_content += f"<li>Присваиваемая игроку фракция: {html.escape(faction_reward)}</li>"
+            html_content += f"<br>Присваиваемая игроку фракция: {html.escape(faction_reward)}"
 
         # Награда очками фракций
         faction_reputation_rewards = quest.get('FactionReputationRewards', {})
         if faction_reputation_rewards:
-            html_content += "<li>Награда очками фракций:"
-            html_content += "<ul>"
+            html_content += "<br>Награда очками фракций:"
             for faction, points in faction_reputation_rewards.items():
                 if points != 0:
-                    html_content += f"<li>{html.escape(faction)}: {points}</li>"
-            html_content += "</ul></li>"
-
-        html_content += "</ul></li>"  # Закрываем блок репутации
+                    html_content += f"<br>{html.escape(faction)}: {points}"
 
         # Цели (objectives)
-        html_content += "<li>Цели:"
-        html_content += "<ul>"
+        html_content += "<p>Цели:"
         for obj in quest.get('Objectives', []):
             obj_id = obj.get('ID')
             obj_type = obj.get('ObjectiveType')
@@ -174,18 +175,16 @@ def create_quest_html(quests, npcs, objectives_data):
             objective_type_name, objective_description = get_objective_description(obj_id, obj_type, objectives_data)
             
             if objective_type_name:
-                html_content += f"<li>Цель: {objective_type_name}, ID {obj_id}"
-                html_content += f"{html.escape(objective_description)}</li></ul></li>"
+                html_content += f"<br><strong>Цель:</strong> {objective_type_name} (ID: {obj_id})<br>"
+                html_content += f"<strong>Описание цели:</strong> {html.escape(objective_description)}"
             else:
-                html_content += f"<li>Цель {obj_id}: Неподдерживаемый тип цели ({obj_type})</li>"
-                
-        html_content += "</ul></li>"  # Закрываем блок целей
-
-        html_content += "</ul></li>"  # Закрываем блок квеста
+                html_content += f"<br>Цель {obj_id}: Неподдерживаемый тип цели ({obj_type})"
+        
+        html_content += "</div></li>"
 
     html_content += "</ul></body></html>"  # Завершаем HTML-документ
     return html_content
-
+    
 def main():
     base_path = r'F:\Modding\Areal\profiles\ExpansionMod\Quests'
 
